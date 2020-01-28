@@ -1,0 +1,57 @@
+Code and datasets for WWW 2020 submission titled "Higher-Order Label Homogeneity and Spreading in Graphs"
+
+---------------------------------------
+STEPS TO RUN THE CODE FROM COMMAND LINE:
+---------------------------------------
+0. In Makefile, set PYTHON and MATLAB to appropriate paths.
+1. make compile
+2. make run DATASET=<DATASET_NAME>
+where <DATASET_NAME> = email | polblogs | citation | friendship
+for EuEmail, PolBlogs, Cora and Pokec respectively.
+(e.g., make run DATASET=polblogs)
+
+------------------
+WHAT THE CODE DOES:
+------------------
+1. Enumerates all k-cliques for k=2,3,4,5 using code accompanying the following paper: https://dl.acm.org/citation.cfm?id=3178876.3186125. (Output: data/*/kcliques.txt)
+2. Computes random and observed distribution over label configurations of k-cliques for k=2,3,4,5 by iterating over the enumerated cliques; plots Figure 2 in the paper.
+3. Constructs k-clique participation matrices --> this step is currently not optimized and hence takes more time than it should. (Output: data/*/kclique_matrices.txt)
+4. Does a grid search for ideal alpha values (how to weight k-cliques for each k). Runs Higher-Order Label Spreading algorithm about 220x5 times. Takes a while. (Output: results/*_grid_search.csv)
+5. Plots Figure 3 in the paper (per dataset).
+
+------
+OUTPUT:
+------
+- Results are stored in results/holh and results/hols.
+- Output files are ordered by figure number in the paper, followed by dataset name.
+
+--------------------
+EXPECTED TIME TO RUN:
+--------------------
+EuEmail (~25 min)
+PolBlogs (~3 min)
+Citation (~5 min)
+Pokec (~2 days)
+
+----------
+DISCLAIMER:
+----------
+Code currently tested only on MacOSX with Python 3.7.4 and MATLAB R2019a.
+
+----------------
+ACKNOWLEDGEMENTS:
+----------------
+1. kClist code was downloaded from https://github.com/loycckvqtd/kClist, and is due to the following paper:
+Maximilien Danisch, Oana Denisa Balalau, and Mauro Sozio. 2018. Listing k-cliques in Sparse Real-World Graphs. In WWW. ACM, 589–598.
+
+2. The data were downloaded from SNAP repository at http://snap.stanford.edu. If you use any of these datasets, please consider citing their respective original papers:
+EuEmail: Jure Leskovec, Jon M. Kleinberg, and Christos Faloutsos. 2007. Graph evolution: Densification and shrinking diameters. TKDD 1, 1 (2007), 2.
+PolBlogs: Lada A. Adamic and Natalie S. Glance. 2005. The political blogosphere and the 2004 U.S. election: divided they blog. In LinkKDD. ACM, 36–43.
+Cora: Lovro Subelj and Marko Bajec. 2013. Model of complex networks based on citation dynamics. In WWW (Companion Volume). International World Wide Web Conferences Steering Committee / ACM, 527–530.
+Pokec: Lubos Takac and Michal Zabovsky. 2012. Data analysis in public social networks. In International Scientific Conference & International Workshop Present Day Trends of Innovations
+
+--------
+CITATION:
+--------
+If you use any part of the repository contents in your research, please cite:
+Dhivya Eswaran, Srijan Kumar and Christos Faloutsos. 2020. Higher-Order Label Homogeneity and Spreading in Graphs. The WebConf (formerly WWW).
